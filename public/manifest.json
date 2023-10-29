@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Dashboard - X",
+  "name": "Prótotipo de Dashboard desenvolvida para o propósitos de estudos.",
   "icons": [
     {
       "src": "favicon.ico",
