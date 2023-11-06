@@ -1,6 +1,6 @@
 import { cyan, red } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
-import logo from './img/logo.png';
+
 
 export const lightTheme = createTheme({
     palette: {
@@ -24,13 +24,8 @@ export const lightTheme = createTheme({
     
 });
 
-const customTheme = {
-    ...lightTheme,
-    logo: {
-        logoURL: `url(${logo})`
-    },
-};
 
-export const themeImages = createTheme(customTheme);
+
+
 
 

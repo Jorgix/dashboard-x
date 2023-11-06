@@ -8,12 +8,11 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  ListSubheader,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import React from "react";
-import logo from "../../themes/img/logo.png";
+import logo from "../../images/logo.png";
 import { useDrawerContext } from "../../contexts";
 import { Link, useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
