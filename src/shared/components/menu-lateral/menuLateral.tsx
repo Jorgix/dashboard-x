@@ -3,6 +3,7 @@ import {
   Box,
   Divider,
   Drawer,
+  Icon,
   List,
   ListItemButton,
   ListItemIcon,
@@ -13,18 +14,54 @@ import {
 } from "@mui/material";
 import React from "react";
 import logo from "../../themes/img/logo.png";
-import { House } from "@mui/icons-material";
 import { useDrawerContext } from "../../contexts";
+import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
 interface IMenuLateralProps {
   children: React.ReactNode;
 }
 
+interface IListItemLinkProps {
+  to: string;
+  icon: string;
+  label: string;
+  onClick: (() => void) | undefined;
+}
+
+const ListItemLink: React.FC<IListItemLinkProps> = ({
+  to,
+  icon,
+  label,
+  onClick,
+}) => {
+  const navigate = useNavigate();
+
+  const resolvedPath = useResolvedPath(to);
+  const match = useMatch({
+    path: resolvedPath.pathname,
+    end: false,
+  });
+
+  const handleClick = () => {
+    navigate(to);
+    onClick?.();
+  };
+
+  return (
+    <ListItemButton selected={!!match} onClick={handleClick}>
+      <ListItemIcon sx={{ minWidth: 35 }}>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  );
+};
+
 export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
+  const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
 
   return (
     <>
@@ -36,7 +73,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
       >
         <Box
           component="img"
-          width={smDown ? theme.spacing(15) : theme.spacing(20)}
+          width={smDown ? theme.spacing(15) : theme.spacing(17)}
           padding={smDown ? theme.spacing(3) : theme.spacing(2)}
           display={"flex"}
           alignItems={"center"}
@@ -48,12 +85,15 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
         <Divider />
         <Box flex={1}>
           <List sx={{ width: "100%", maxWidth: 360 }} component="nav">
-            <ListItemButton>
-              <ListItemIcon sx={{ minWidth: 35 }}>
-                <House />
-              </ListItemIcon>
-              <ListItemText primary="Página Inicial" />
-            </ListItemButton>
+            {drawerOptions.map((drawerOption) => (
+              <ListItemLink
+                to={drawerOption.path}
+                key={drawerOption.path}
+                icon={drawerOption.icon}
+                label={drawerOption.label}
+                onClick={smDown ? toggleDrawerOpen : undefined}
+              />
+            ))}
           </List>
         </Box>
       </Drawer>
