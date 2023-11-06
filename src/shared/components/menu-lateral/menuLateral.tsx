@@ -15,7 +15,7 @@ import {
 import React from "react";
 import logo from "../../themes/img/logo.png";
 import { useDrawerContext } from "../../contexts";
-import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
+import { Link, useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
 interface IMenuLateralProps {
   children: React.ReactNode;
@@ -71,17 +71,19 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
         sx={{ width: "500px" }}
         onClose={toggleDrawerOpen}
       >
-        <Box
-          component="img"
-          width={smDown ? theme.spacing(15) : theme.spacing(17)}
-          padding={smDown ? theme.spacing(3) : theme.spacing(2)}
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          bgcolor={theme.palette.background.default}
-          src={logo}
-          flexDirection={"column"}
-        />
+        <Link to={"/pagina-inicial"}>
+          <Box
+            component="img"
+            width={smDown ? theme.spacing(15) : theme.spacing(17)}
+            padding={smDown ? theme.spacing(3) : theme.spacing(2)}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            bgcolor={theme.palette.background.default}
+            src={logo}
+            flexDirection={"column"}
+          />
+        </Link>
         <Divider />
         <Box flex={1}>
           <List sx={{ width: "100%", maxWidth: 360 }} component="nav">
